@@ -2,32 +2,32 @@ library(twitteR)
 library(plyr)
 update.packages()
 
-df.cat <- rbind(dfSub[[1]], dfSub[[2]], dfSub[[3]], dfSub[[4]])
+#df.cat <- rbind(dfSub[[1]], dfSub[[2]], dfSub[[3]], dfSub[[4]])
 
-df.union <- unique(df.cat)
+#df.union <- unique(df.cat)
 
 
 require(twitteR)
 
-pos=scan('positive-words.txt',what='character',comment.char=';')
+#cargo listado de palabras
+pos=scan('sent-positivo.txt',what='character',comment.char=';')
 
-tweets <- searchTwitter("#Elecciones2015",n=3000)
+neg=scan('sent-negativo.txt',what='character',comment.char=';')
+
                           
-tweetdataframe <- do.call("rbind",lapply(tweets,as.data.frame))
+#tweetdataframe <- do.call("rbind",lapply(tweets,as.data.frame))
                           
-write.table(tweetdataframe,"c:/users/paras/desktop/tweetsaboutexcel.txt",sep="\t")
 
 #tweets <- userTimeline("RDataMining", n = 3200)
-load(file = "rdmTweets-201306.RData")
-"rdmTweets"
-tweets<-rdmTweets
-
-tweets<-rdmTweets
-tweets.df <- twListToDF(tweets)
-
-length(tweets)
 
 # convert tweets to a data frame
+
+tweets.df <- as.data.frame(elecciones2015_tw)
+
+length(tweets.df)
+dim (tweets.df)
+
+colnames(tweets.df)[8] <- "text"
 
 for (i in c(1:2, 154)) {
   cat(paste0("[", i, "] "))
@@ -80,7 +80,7 @@ myCorpus <- tm_map(myCorpus, content_transformer(removeNumPunct))
 # add two extra stop words: "available" and "via"
 
 myStopwords <- c(stopwords('english'), "available", "via")
-myStopwords <- c(stopword ('spanish'),"available","via")
+myStopwords <- c(stopwords ('spanish'),"available","via","rt","q")
 myStopwords
 # remove "r" and "big" from stopwords
 
