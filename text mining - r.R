@@ -1,5 +1,6 @@
 library(twitteR)
 library(plyr)
+library(textcat)
 update.packages()
 
 #df.cat <- rbind(dfSub[[1]], dfSub[[2]], dfSub[[3]], dfSub[[4]])
@@ -14,7 +15,19 @@ pos=scan('sent-positivo.txt',what='character',comment.char=';')
 
 neg=scan('sent-negativo.txt',what='character',comment.char=';')
 
-                          
+
+
+writeLines(as.character(myCorpus[[2]]))
+writeLines(textcat(as.character(myCorpus[[2]])))
+
+as.character(myCorpus[[2]])
+
+for (i in c(11:500)) {
+  langtest1 <- data.frame(text =as.character(myCorpus[[i]]),lang =textcat(as.character(myCorpus[[i]])))
+  
+  langtest<-rbind(langtest,langtest1)  
+}
+
 #tweetdataframe <- do.call("rbind",lapply(tweets,as.data.frame))
                           
 
